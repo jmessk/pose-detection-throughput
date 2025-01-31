@@ -6,10 +6,13 @@ from std_msgs.msg import String
 class SubNode(Node):
     def __init__(self):
         super().__init__("example_sub")
-        self.create_subscription(String, "/example", self.__callback, 10)
+        self.create_subscription(String, "/pose", self.__callback, 10)
 
-    def __callback(self, message: String):
-        self.get_logger().info(f"Recieved from `/example`: {message.data}")
+        self.__count = 0
+
+    def __callback(self, _message: String):
+        self.__count += 1
+        print(f"Received: {self.__count}")
 
 
 def main():
